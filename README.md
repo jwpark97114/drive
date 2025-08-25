@@ -12,13 +12,13 @@
 
 - Upload / Download of files
 
-- Organizing files in folders
+- NEXT PHASE: Organizing files in folders
 
-- Share files via link
+- NEXT PHASE: Share files via link
 
 ## Structure
 
 - API : FastAPI + pydantic, SQLAlchemy (async)
-- DB : MySQL (metadata)
+- DB : MySQL (metadata) (Alembic later)
 - Object Storaget : MinIO -> S3
-- Background Worker : Dramatiq + Redis
+- Background Worker : Redis (+ Dramatiq later)
