@@ -6,8 +6,9 @@ from sqlalchemy.orm import session
 from .database import Base, engine
 from .depends import get_db, get_current_user
 from .routes import auth as routes_auth
+from .routes import files as routes_file
 from .models import User
-
+from .utils.s3 import ensure_bucket
 
 # from fastapi.templating import Jinja2Templates
 
@@ -19,6 +20,10 @@ app = FastAPI(title=f"{config.APP_NAME}({config.APP_ENV})")
 @app.on_event("startup")
 def on_startup():
     Base.metadata.create_all(bind=engine)
+    try:
+        ensure_bucket()
+    except Exception as e:
+        print("Ensure_Bucket Faile on Start Up")
 
 
 @app.get("/")
@@ -37,3 +42,5 @@ def check_user(cur_user: User = Depends(get_current_user)):
 
 
 app.include_router(routes_auth.router)
+
+app.include_router(routes_file.router)
