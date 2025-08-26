@@ -10,6 +10,7 @@ from ..auth import hash_password, verify_password, create_access_token
 from typing import List
 from ..utils.s3 import presign_get, presign_put
 from ..cache import cache_delete, cache_get_json, cache_set_json
+from ..utils.s3 import convert2_public
 
 router = APIRouter(prefix="/files", tags=["files"])
 
@@ -22,6 +23,7 @@ def presign_upload(
 ):
     key = f"{current_user.id}/{filename}"
     url = presign_put(key, content_type)
+    # url = convert2_public(url)
     return {"key": key, "upload_url": url}
 
 
