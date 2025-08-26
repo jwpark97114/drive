@@ -17,7 +17,7 @@ s3 = session.client(
 def ensure_bucket():
     list_buckets = [elem["Name"] for elem in s3.list_buckets().get("Buckets", [])]
     if config.S3_BUCKET not in list_buckets:
-        kwargs = {"Buckets": config.S3_BUCKET}
+        kwargs = {"Bucket": config.S3_BUCKET}
         if config.S3_ENDPOINT_URL is None:
             if config.S3_REGION != "us-west-1":
                 kwargs["CreateBucketConfiguration"] = {
